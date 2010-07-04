@@ -32,7 +32,7 @@ $modules.each_key do |k|
   $modules[k].triggers.each { |t| on t[0], t[1], t[2] } if defined? $modules[k].triggers
 end
 
-on :channel, /^@load (.*)/, Proc.new {
+on :channel, /^?load (.*)/, Proc.new {
   begin
     $modules[match[0]].triggers.each { |t| remove t[0], t[1], t[2] } if defined? $modules[match[0]].triggers unless $modules[match[0]].nil?
     load match[0] + '.rb'
@@ -44,7 +44,7 @@ on :channel, /^@load (.*)/, Proc.new {
   end
 }
 
-on :channel, /^@unload (.*)/, Proc.new {
+on :channel, /^?unload (.*)/, Proc.new {
   begin
     $modules[match[0]].triggers.each { |t| remove t[0], t[1], t[2] } if defined? $modules[match[0]].triggers
     $modules.delete(match[0])
